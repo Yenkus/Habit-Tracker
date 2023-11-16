@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class NewHabitDialog extends StatelessWidget {
+class MyAlertBox extends StatelessWidget {
   final controller;
   Function()? onSave;
   Function()? onCancel;
+  final String hintText;
 
-  NewHabitDialog(
+  MyAlertBox(
       {super.key,
       required this.controller,
       required this.onSave,
-      required this.onCancel});
+      required this.onCancel,
+      required this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,10 @@ class NewHabitDialog extends StatelessWidget {
       content: TextField(
         style: const TextStyle(color: Colors.white),
         controller: controller,
-        decoration: const InputDecoration(
-          hintText: 'Enter new habit',
-          border: OutlineInputBorder(),
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.grey[600]),
+          border: const OutlineInputBorder(),
           // focusedBorder: OutlineInputBorder()
         ),
       ),
