@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/components/monthly_summary.dart';
 import 'package:habit_tracker/components/my_alert_box.dart';
 import 'package:habit_tracker/components/habit_tile.dart';
 import 'package:habit_tracker/components/my_fab.dart';
@@ -108,21 +109,32 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: MyFloatingActionButton(
-        onPressed: createNewHabit,
-      ),
-      body: ListView.builder(
-        itemCount: db.todaysHabitList.length,
-        itemBuilder: (context, index) {
-          return HabitTile(
-            isHabitChecked: db.todaysHabitList[index][1],
-            onChanged: (value) => onHabitPress(value, index),
-            habitText: db.todaysHabitList[index][0],
-            settingsTapped: (context) => openHabitSetting(index),
-            deleteTapped: (context) => deleteHabit(index),
-          );
-        },
-      ),
-    );
+        floatingActionButton: MyFloatingActionButton(
+          onPressed: createNewHabit,
+        ),
+        body: ListView(
+          children: [
+            // Monthly summary heat map
+            MonthlySummary(
+                dataset: db.heatMapDataSet,
+                startDate: _mybox.get('START_DATE')),
+
+            // Lists of habits
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: db.todaysHabitList.length,
+              itemBuilder: (context, index) {
+                return HabitTile(
+                  isHabitChecked: db.todaysHabitList[index][1],
+                  onChanged: (value) => onHabitPress(value, index),
+                  habitText: db.todaysHabitList[index][0],
+                  settingsTapped: (context) => openHabitSetting(index),
+                  deleteTapped: (context) => deleteHabit(index),
+                );
+              },
+            ),
+          ],
+        ));
   }
 }
