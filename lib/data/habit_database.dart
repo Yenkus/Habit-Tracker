@@ -29,9 +29,18 @@ class HabitDatabase {
         todaysHabitList[i][1] = false;
       }
     }
-    //if it's not a new day, load todays list
+    // if it's not a new day, load todays list
+    else {
+      todaysHabitList = _mybox.get(todaysDateFormatted());
+    }
   }
 
   // update database
-  void updateDatabase() {}
+  void updateDatabase() {
+    // update todays entry
+    _mybox.put(todaysDateFormatted(), todaysHabitList);
+
+    // update universal habit list in case it changed (new habit, edit habit, delete habit)
+    _mybox.put('CURRENT_HABIT_LIST', todaysHabitList);
+  }
 }

@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
     });
     Navigator.of(context).pop();
     _newHabitNameController.clear();
+    // update the database
+    db.updateDatabase();
   }
 
   // cancel dialog box
@@ -90,6 +92,8 @@ class _HomePageState extends State<HomePage> {
     });
     Navigator.of(context).pop();
     _newHabitNameController.clear();
+    // update the database
+    db.updateDatabase();
   }
 
   // delete habit
@@ -97,6 +101,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       db.todaysHabitList.removeAt(index);
     });
+    // update the database
+    db.updateDatabase();
   }
 
   @override
