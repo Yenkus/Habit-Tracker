@@ -59,6 +59,7 @@ class HabitDatabase {
         countCompleted++;
       }
     }
+    print('countCompleted: $countCompleted');
 
     String percent = todaysHabitList.isEmpty
         ? '0.0'
@@ -75,10 +76,11 @@ class HabitDatabase {
 
     // count the number of days to load
     int daysInBetween = DateTime.now().difference(startDate).inDays;
+    print("daysInBetween: $daysInBetween");
 
     // go from the start date to today and add each percentage to the dataset
     // "PERCENTAGE_SUMMARY_yyyymmdd" will be the key of the database
-    for (int i = 0; i < daysInBetween; i++) {
+    for (int i = 0; i < daysInBetween + 1; i++) {
       String yyyymmdd = convertDateTimeToString(
         startDate.add(Duration(days: i)),
       );
@@ -101,9 +103,11 @@ class HabitDatabase {
       final percentageForEachDay = <DateTime, int>{
         DateTime(year, month, day): (10 * strengthAsPercent.toInt()),
       };
+      print('strengthAsPercent: $strengthAsPercent');
 
       heatMapDataSet.addEntries(percentageForEachDay.entries);
       print(heatMapDataSet);
+      print('percentageForEachDay: $percentageForEachDay');
     }
   }
 }
