@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Monthly summary heat map
             MonthlySummary(
-                dataset: db.heatMapDataSet,
+                datasets: db.heatMapDataSet,
                 startDate: _mybox.get('START_DATE')),
 
             // Lists of habits

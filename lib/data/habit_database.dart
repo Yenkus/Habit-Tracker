@@ -83,7 +83,7 @@ class HabitDatabase {
         startDate.add(Duration(days: i)),
       );
 
-      double strength = double.parse(
+      double strengthAsPercent = double.parse(
         _mybox.get("PERCENTAGE_SUMMARY_$yyyymmdd") ?? "0.0",
       );
 
@@ -99,7 +99,7 @@ class HabitDatabase {
       int day = startDate.add(Duration(days: i)).day;
 
       final percentageForEachDay = <DateTime, int>{
-        DateTime(year, month, day): (10 * strength.toInt()),
+        DateTime(year, month, day): (10 * strengthAsPercent.toInt()),
       };
 
       heatMapDataSet.addEntries(percentageForEachDay.entries);
