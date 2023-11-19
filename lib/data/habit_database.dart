@@ -59,7 +59,6 @@ class HabitDatabase {
         countCompleted++;
       }
     }
-    print('countCompleted: $countCompleted');
 
     String percent = todaysHabitList.isEmpty
         ? '0.0'
@@ -100,13 +99,14 @@ class HabitDatabase {
       //days
       int day = startDate.add(Duration(days: i)).day;
 
+      int strengthAsPercentage = 10 * strengthAsPercent.toInt();
       final percentageForEachDay = <DateTime, int>{
-        DateTime(year, month, day): (10 * strengthAsPercent.toInt()),
+        DateTime(year, month, day): (10 * strengthAsPercent).toInt(),
+        // DateTime(year, month, day): strengthAsPercentage,
       };
-      print('strengthAsPercent: $strengthAsPercent');
 
       heatMapDataSet.addEntries(percentageForEachDay.entries);
-      print(heatMapDataSet);
+      print('heatMapDataSet: $heatMapDataSet');
       print('percentageForEachDay: $percentageForEachDay');
     }
   }
