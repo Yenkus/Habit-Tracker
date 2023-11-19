@@ -21,7 +21,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
     // if there is no current habit list,
     // then this is the 1st time ever opening the app
     // then create dafault data
@@ -36,16 +35,19 @@ class _HomePageState extends State<HomePage> {
 
     // update the database
     db.updateDatabase();
+
+    super.initState();
   }
 
-  void onHabitPress(value, index) {
+  void checkBoxTapped(value, index) {
     setState(() {
       db.todaysHabitList[index][1] = value;
     });
+    db.updateDatabase();
   }
 
   // Add new habit
-  void onSave() {
+  void saveNewHabit() {
     setState(() {
       db.todaysHabitList.add([_newHabitNameController.text, false]);
     });
@@ -67,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: context,
         builder: (context) => MyAlertBox(
-              onSave: onSave,
+              onSave: saveNewHabit,
               onCancel: cancelDialogBox,
               controller: _newHabitNameController,
               hintText: 'Enter habit name..',
@@ -109,6 +111,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[400],
         floatingActionButton: MyFloatingActionButton(
           onPressed: createNewHabit,
         ),
@@ -117,7 +120,7 @@ class _HomePageState extends State<HomePage> {
             // Monthly summary heat map
             MonthlySummary(
                 datasets: db.heatMapDataSet,
-                startDate: _mybox.get('START_DATE')),
+                startDate: _mybox.get("START_DATE")),
 
             // Lists of habits
             ListView.builder(
@@ -127,7 +130,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return HabitTile(
                   isHabitChecked: db.todaysHabitList[index][1],
-                  onChanged: (value) => onHabitPress(value, index),
+                  onChanged: (value) => checkBoxTapped(value, index),
                   habitText: db.todaysHabitList[index][0],
                   settingsTapped: (context) => openHabitSetting(index),
                   deleteTapped: (context) => deleteHabit(index),

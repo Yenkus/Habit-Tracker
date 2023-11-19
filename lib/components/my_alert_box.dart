@@ -21,11 +21,13 @@ class MyAlertBox extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
         controller: controller,
         decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey[600]),
-          border: const OutlineInputBorder(),
-          // focusedBorder: OutlineInputBorder()
-        ),
+            hintText: hintText,
+            hintStyle: TextStyle(color: Colors.grey[600]),
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
+            //border: const OutlineInputBorder(),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white))),
       ),
       actions: [
         MaterialButton(
